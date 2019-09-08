@@ -1,0 +1,55 @@
+<div class="ui inverted vertical footer segment">
+  <div class="ui container">
+    <div class="ui stackable inverted divided grid">
+      <div class="three wide column">
+        <h4 class="ui inverted header">States &amp; Territories</h4>
+        <div class="ui inverted link list">
+          <% State.order(name: :asc).each do |s| %>
+              <%= link_to s.name, {:controller => :site, :action => :state, :state => s.abbreviation}, {:class => 'item'} %>
+          <% end %>
+        </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header">Links</h4>
+        <div class="ui inverted link list">
+          <%= link_to 'Home', {:controller => :site, :action => :index}, {:class => 'item'} %>
+          <%= link_to 'Map', {:controller => :site, :action => :map}, {:class => 'item'} %>
+          <%= link_to 'Capitals', {:controller => :site, :action => :capitals}, {:class => 'item'} %>
+          <%= link_to 'Records', {:controller => :site, :action => :records}, {:class => 'item'} %>
+          <%= link_to 'About', {:controller => :site, :action => :about}, {:class => 'item'} %>
+          <% if @current_user %>
+              <%= link_to 'Favorite Stations', {:controller => :site, :action => :favorites}, {:class => 'item'} %>
+              <%= link_to 'Change Your Details', {:controller => :authentication, :action => :edit_user}, {:class => 'item'} %>
+              <%= link_to 'Change Your Password', {:controller => :authentication, :action => :edit_password}, {:class => 'item'} %>
+              <%= link_to 'Logout', {:controller => :authentication, :action => :logout}, {:class => 'item'} %>
+          <% else %>
+              <%= link_to 'Register', {:controller => :authentication, :action => :register}, {:class => 'item'} %>
+              <%= link_to 'Login', {:controller => :authentication, :action => :login}, {:class => 'item'} %>
+          <% end %>
+        </div>
+      </div>
+      <div class="ten wide column">
+        <h4 class="ui inverted header">Important Notice</h4>
+        <p>
+          <% if @current_user %>
+            All times are showin in your local time zone - <%= Time.zone %>.<br/><br/>
+          <% else %>
+            All times are shown in <%= Time.zone %> time - this can be customised if you register / login.<br/><br/>
+          <% end %>
+          All weather information presented on WeatherWatch has been obtained from the
+          <a href="http://www.bom.gov.au" target="_blank">Bureau of Meteorology</a>.
+        </p>
+      </div>
+    </div>
+    <div class="ui inverted section divider"></div>
+    <%= image_tag 'logo.png', :class => 'ui centered image' %>
+    <div class="ui horizontal inverted small divided link list">
+      <div class="item">
+        &copy; 2016 - WeatherWatch
+      </div>
+      <div class="item">
+        Created by Jeremy Mercer
+      </div>
+    </div>
+  </div>
+</div>

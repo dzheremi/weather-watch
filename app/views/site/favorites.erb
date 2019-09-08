@@ -1,0 +1,34 @@
+<h1>Your Favorite Stations</h1>
+<div class="ui grid centered">
+  <% @favorites.each do |f| %>
+      <div class="five wide column">
+        <div class="ui segment">
+          <div class="ui clearing">
+            <h3 class="ui left floated header">
+              <%= toggle_favorite(f.station) if @current_user %><%= link_to f.station.name, :action => :station, :id => f.station %>
+            </h3>
+          </div><br/>
+          <%= current_conditions(f.station, true) %>
+        </div>
+      </div>
+  <% end %>
+</div>
+<% if @favorites.empty? %>
+    <div class="ui icon message" style="margin-top: 50px; margin-bottom: 100px;">
+      <i class="help icon"></i>
+      <div class="content">
+        <div class="header">
+          You haven't got any favorite stations!
+        </div>
+        <p>
+          Your favorite stations will appear here every time you login. Please try:
+          <ul>
+            <li>Searching using the box in the top right of your screen</li>
+            <li>Finding stations on our <%= link_to 'map', :action => :map %></li>
+            <li>Browsing states or territories using the "States & Territories" menu above</li>
+          </ul>
+          Then simply click on the <i class="empty star icon large"></i>
+        </p>
+      </div>
+    </div>
+<% end %>

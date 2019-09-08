@@ -1,0 +1,121 @@
+<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+<div class="ui center aligned segment">
+  Show Last
+  <div class="ui buttons">
+    <button id="show20" class="mini ui button">20</button>
+    <button id="show40" class="mini ui button">40</button>
+    <button id="show80" class="mini ui button">80</button>
+  </div>
+  Observations
+</div>
+
+<div class="ui segment">
+  <h3>Air Temperature</h3>
+  <canvas id="canvasTemperature" width="800" height="550"></canvas>
+</div>
+
+<div class="ui segment">
+  <h3>Pressure</h3>
+  <canvas id="canvasPressure" width="800" height="550"></canvas>
+</div>
+
+<div class="ui segment">
+  <h3>Relative Humidity</h3>
+  <canvas id="canvasHumidity" width="800" height="550"></canvas>
+</div>
+
+<script>
+
+  var readings = 20;
+  var tempChart;
+  var pressChart;
+  var humChart;
+  var first = true;
+
+  function reload() {
+
+    $('#canvasTemperature').get(0).getContext("2d").clearRect(0, 0, 800, 550);
+    $('#canvasPressure').get(0).getContext("2d").clearRect(0, 0, 800, 550);
+    $('#canvasPressure').get(0).getContext("2d").clearRect(0, 0, 800, 550);
+
+    $.get("<%= url_for(:controller => :observations, :action => :temperature_chart, :id => @station) %>/" + readings, function (response) {
+      data = {
+        labels : response['labels'],
+        datasets : [
+          {
+            fillColor : "rgba(151,187,205,0.2)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+            data : response['data']
+          }
+        ]
+      };
+      if(!first){
+        tempChart.destroy();
+      }
+      tempChart = new Chart($("#canvasTemperature").get(0).getContext("2d")).Line(data);
+    });
+
+    $.get("<%= url_for(:controller => :observations, :action => :pressure_chart, :id => @station) %>/" + readings, function (response) {
+      data = {
+        labels : response['labels'],
+        datasets : [
+          {
+            fillColor : "rgba(151,0,0,0.2)",
+            strokeColor : "rgba(151,0,0,1)",
+            pointColor : "rgba(151,0,0,1)",
+            pointStrokeColor : "#fff",
+            data : response['data']
+          }
+        ]
+      };
+      if(!first){
+        pressChart.destroy();
+      }
+      pressChart = new Chart($("#canvasPressure").get(0).getContext("2d")).Line(data);
+    });
+
+    $.get("<%= url_for(:controller => :observations, :action => :humidity_chart, :id => @station) %>/" + readings, function (response) {
+      data = {
+        labels: response['labels'],
+        datasets: [
+          {
+            fillColor: "rgba(0,151,0,0.2)",
+            strokeColor: "rgba(0,151,0,1)",
+            pointColor: "rgba(0,151,0,1)",
+            pointStrokeColor: "#fff",
+            data: response['data']
+          }
+        ]
+      };
+      if(!first){
+        humChart.destroy();
+      }
+      humChart = new Chart($("#canvasHumidity").get(0).getContext("2d")).Line(data);
+    });
+  }
+
+  $('#show20').click(function(){
+    readings = 20;
+    first = false;
+    reload();
+  });
+
+  $('#show40').click(function(){
+    readings = 40;
+    first = false;
+    reload();
+  });
+
+  $('#show80').click(function(){
+    readings = 80;
+    first = false;
+    reload();
+  });
+
+  reload();
+
+</script>

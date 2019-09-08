@@ -1,0 +1,22 @@
+<h1>Stations</h1>
+<h2><%= @state.name %></h2>
+<table class="ui celled table striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Last Updated</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @stations.each do |s| %>
+    <tr>
+      <td><%= link_to s.name, :action => :station, :id => s %></td>
+      <td><%= s.latitude %></td>
+      <td><%= s.longitude %></td>
+      <td><%= time_ago_in_words(s.last_updated) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

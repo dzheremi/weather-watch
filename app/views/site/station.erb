@@ -1,0 +1,88 @@
+<div class="ui clearing">
+  <h1 class="ui left floated header">
+    <%= link_to @station.state.name, :action => :state, :state => @station.state.abbreviation %> > <%= @station.name %>
+  </h1>
+  <h3 class="ui right floated header" style="padding-top: 10px;">
+    <%= toggle_favorite(@station) if @current_user %>
+  </h3>
+</div>
+<div class="ui top attached tabular menu">
+  <a class="item active" data-tab="observations">Current Conditions</a>
+  <a class="item" id="chart-button" data-tab="charts">Charts</a>
+  <a class="item" id="table-button" data-tab="table">Observations Table</a>
+  <a class="item" id="table-button" data-tab="statistics">Statistics</a>
+  <a class="item" id="map-button" data-tab="map">Map</a>
+  <a class="item" id="info-button" data-tab="info">Station Information</a>
+</div>
+<div class="ui bottom attached active tab segment" data-tab="observations">
+  <%= current_conditions(@station) %>
+</div>
+<div class="ui bottom attached tab segment" data-tab="charts">
+  <div class="container">
+    <%= station_chart(@station) %>
+  </div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="table">
+  <div class="container">
+    <%= observation_table(@station) %>
+  </div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="statistics">
+  <div class="container">
+    <%= statistics_table(@station) %>
+  </div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="map">
+  <%= station_map(@station) %>
+</div>
+<div class="ui bottom attached tab segment" data-tab="info">
+  <table class="ui celled striped table">
+    <thead>
+    <tr><th colspan="2">
+      <%= @station.name %>
+    </th>
+    </tr></thead>
+    <tbody>
+    <tr>
+      <td>State</td>
+      <td class="right aligned"><%= @station.state.name %></td>
+    </tr>
+    <tr>
+      <td>Timezone</td>
+      <td class="right aligned"><%= @station.timezone.name %></td>
+    </tr>
+    <tr>
+      <td>Latitude / Longitude</td>
+      <td class="right aligned"><%= @station.latitude %> and <%= @station.longitude %></td>
+    </tr>
+    <tr>
+      <td>BOM Station I.D.</td>
+      <td class="right aligned"><%= "#{@station.state.product_group}#{@station.id}" %></td>
+    </tr>
+    <tr>
+      <td>Last Updated</td>
+      <td class="right aligned"><%= @station.last_updated.to_s(:long) %></td>
+    </tr>
+    <tr>
+      <td>Average Time Between Observations</td>
+      <td class="right aligned"><%= distance_of_time_in_words(@station.average_update_time) %></td>
+    </tr>
+    <tr>
+      <td>Total Observations</td>
+      <td class="right aligned"><%= @station.observations.count %></td>
+    </tr>
+    <tr>
+      <td>Oldest Observation</td>
+      <td class="right aligned"><%= @station.oldest_update.to_s(:long) %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  $('#map-button').click(function(){
+    document.getElementById('map-frame').contentDocument.location.reload(true);
+  });
+  $('.menu .item')
+      .tab()
+  ;
+</script>

@@ -1,0 +1,25 @@
+<h1>Login</h1>
+<div class="ui middle aligned center aligned grid">
+  <div class="column" style="max-width: 400px;">
+    <%= form_tag({:action => :process_login}, {:class => 'ui large form'}) do %>
+      <div class="ui segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="username" placeholder="Username">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+        <button class="ui fluid large submit button" type="submit">Login</button>
+      </div>
+    <% end %>
+    <div class="ui segment">
+      Not a member? <%= link_to 'Click here', :action => :register %> to register.
+    </div>
+  </div>
+</div>

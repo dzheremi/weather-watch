@@ -1,0 +1,32 @@
+<table class="ui definition table striped">
+  <thead>
+  <tr>
+    <th></th>
+    <% observations.first.ordered_readings.each do |r| %>
+        <th id="<%= r.reading_type.safe_name %>"><%= r.reading_type.abbreviation %></th>
+        <script>
+          $('#<%= r.reading_type.safe_name %>')
+              .popup({
+                position : 'top center',
+                title    : '<%= r.reading_type.name %>',
+                content  : '<%= "Measured in #{r.reading_type.metric.name}" if r.reading_type.numeric %>'
+              })
+          ;
+        </script>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% observations.each do |o| %>
+      <tr>
+        <td><%= o.recording_time.to_s(:short) %></td>
+        <% o.ordered_readings.each do |r| %>
+            <td>
+              <%= r.numeric_value if r.reading_type.numeric %>
+              <%= r.string_value unless r.reading_type.numeric %>
+            </td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

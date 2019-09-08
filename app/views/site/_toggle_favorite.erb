@@ -1,0 +1,8 @@
+<a href="javascript:null"><i id="toggleFav<%= station.id %>" class="<%= 'empty ' unless on %>star icon large"></i></a>
+<script>
+  $('#toggleFav<%= station.id %>').click(function(){
+    $.get("<%= url_for :controller => :authentication, :action => :toggle_favorite, :id => station %>", function(data){
+      $('#toggleFav<%= station.id %>').toggleClass('empty')
+    });
+  });
+</script>

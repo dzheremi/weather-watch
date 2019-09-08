@@ -1,0 +1,16 @@
+<h1>Current Conditions</h1>
+<h2>Capital Cities</h2>
+<div class="ui grid centered">
+  <% @capitals.each do |c| %>
+  <div class="five wide column">
+    <div class="ui segment">
+      <div class="ui clearing">
+        <h3 class="ui left floated header">
+          <%= toggle_favorite(c) if @current_user %><%= link_to c.name, :action => :station, :id => c %>
+        </h3>
+      </div><br/>
+      <%= current_conditions(c, true) %>
+    </div>
+  </div>
+  <% end %>
+</div>

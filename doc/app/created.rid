@@ -1,0 +1,20 @@
+Fri, 25 Mar 2016 09:29:28 +0000
+README.rdoc	Thu, 24 Mar 2016 03:41:40 +0000
+app/controllers/application_controller.rb	Thu, 24 Mar 2016 03:41:40 +0000
+app/controllers/observations_controller.rb	Fri, 25 Mar 2016 08:33:47 +0000
+app/controllers/stations_controller.rb	Fri, 25 Mar 2016 08:35:11 +0000
+app/helpers/application_helper.rb	Thu, 24 Mar 2016 03:41:40 +0000
+app/helpers/observations_helper.rb	Fri, 25 Mar 2016 08:17:25 +0000
+app/helpers/stations_helper.rb	Fri, 25 Mar 2016 08:14:44 +0000
+app/models/favorite.rb	Fri, 25 Mar 2016 05:43:54 +0000
+app/models/metric.rb	Fri, 25 Mar 2016 02:38:36 +0000
+app/models/observation.rb	Fri, 25 Mar 2016 07:59:25 +0000
+app/models/observation_feed.rb	Fri, 25 Mar 2016 09:36:52 +0000
+app/models/reading.rb	Fri, 25 Mar 2016 07:29:36 +0000
+app/models/reading_type.rb	Fri, 25 Mar 2016 05:47:13 +0000
+app/models/scraper.rb	Fri, 25 Mar 2016 05:48:23 +0000
+app/models/state.rb	Fri, 25 Mar 2016 08:21:07 +0000
+app/models/station.rb	Fri, 25 Mar 2016 08:08:04 +0000
+app/models/station_feed.rb	Fri, 25 Mar 2016 09:34:48 +0000
+app/models/timezone.rb	Fri, 25 Mar 2016 05:53:13 +0000
+app/models/user.rb	Fri, 25 Mar 2016 05:55:34 +0000

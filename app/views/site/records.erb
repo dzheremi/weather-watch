@@ -1,0 +1,37 @@
+<h1>Records</h1>
+<table class="ui celled structured table">
+  <thead>
+  <tr>
+    <th>Record</th>
+    <th>Value</th>
+    <th>Station</th>
+    <th>When</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%
+    @records.each do |r|
+      first = true
+  %>
+      <tr>
+        <td rowspan="<%= r[:stations].count %>"><%= r[:name] %></td>
+        <td rowspan="<%= r[:stations].count %>"><%= r[:value] %></td>
+        <% r[:stations].each do |s| %>
+            <%= raw('<tr>') unless first %>
+            <td>
+              <%= link_to Station.find(s[:id]).name, :action => :station, :id => s[:id] %><br/>
+            </td>
+            <td>
+              <%= s[:time].to_s(:long) %>
+            </td>
+            </tr>
+        <%
+          first = false
+          end
+        %>
+  <% end %>
+  </tbody>
+</table>
+<div class="ui center aligned segment">
+  Based on <%= number_to_human(Observation.all.count) %> observations since <%= Observation.oldest_observation.first.recording_time.to_s(:long) %>
+</div>

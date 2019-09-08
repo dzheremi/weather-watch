@@ -1,0 +1,30 @@
+<div class="ui center aligned segment">
+  Observations to Show
+  <div class="ui action input">
+    <input type="text" id="observationReadings" placeholder="50" size="3">
+    <button class="ui icon button" id="changeObservations">
+      <i class="search icon"></i>
+    </button>
+  </div>
+</div>
+
+<div id="observations_table">
+</div>
+
+<script>
+  var readings = 50;
+
+  function reload() {
+    $.get("<%= url_for(:controller => :observations, :action => :observation_table, :id => station) %>/" + readings, function (data) {
+      $('#observations_table').html(data);
+    });
+  }
+
+  $('#changeObservations').click(function(){
+    readings = $('#observationReadings').val();
+    reload();
+  });
+
+  reload();
+
+</script>

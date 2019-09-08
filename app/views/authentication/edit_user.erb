@@ -1,0 +1,35 @@
+<h1>Change Your Details</h1>
+<div class="ui middle aligned center aligned grid">
+  <div class="column" style="max-width: 400px;">
+    <%= form_tag({:action => :update_user}, {:class => 'ui large form'}) do %>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @current_user.errors[:name].empty? %>">
+              <i class="user icon"></i>
+              <input type="text" name="user[name]" placeholder="Name" value="<%= @current_user.name %>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @current_user.errors[:email].empty? %>">
+              <i class="mail icon"></i>
+              <input type="text" name="user[email]" placeholder="Email" value="<%= @current_user.email %>">
+            </div>
+          </div>
+          <div class="field">
+            <select name="user[timezone_id]" class="ui dropdown<%= ' error' unless @current_user.errors[:timezone_id].empty? %>">
+              <option value="">Time Zone</option>
+              <% @timezones.each do |t| %>
+                  <option value="<%= t.id %>"<%= ' selected' if t.id == @current_user.timezone_id %>><%= t.name %></option>
+              <% end %>
+            </select>
+            <script>
+              $('.ui.dropdown')
+                  .dropdown()
+              ;
+            </script>
+          </div>
+          <button class="ui fluid large submit button" type="submit">Save Changes</button>
+        </div>
+    <% end %>
+  </div>
+</div>

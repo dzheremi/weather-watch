@@ -1,0 +1,31 @@
+<h1>About WeatherWatch</h1>
+<div class="ui segment">
+  WeatherWatch was produced as an assignment by <a href="mailto:s3550425@student.rmit.edu.au">Jeremy Mercer (S3550425)</a>,
+  for a course (Software Engineering Processes and Tools) at RMIT University.
+  <br/><br/>
+  The system has been written entirely in <a href="http://rubyonrails.org/" target="_blank">Ruby on Rails</a>,
+  and utilises a <a href="http://www.postgresql.org/" target="_blank">PostgreSQL</a> relational database manager.
+  <br/><br/>
+  All data is obtained from the Bureau of Meteorology, using a combination of web scraping techniques and JSON feeds.
+</div>
+<div class="ui segment">
+  New weather stations are automatically obtained from the BOM website at 3AM EST.
+  <br/><br/>
+  Weather observations are obtained every 30 minutes, on the 5th and 35th minute of every hour - as no station updates
+  more than every 30 minutes.
+  <br/><br/>
+  Observations are kept in our database indefinitely, achievable due to the databases sound design and indexing.
+  <br/><br/>
+  There are currently <strong><%= number_to_human(Observation.all.count) %></strong> observations
+  (<%= number_to_human(Reading.all.count) %> individual weather readings) for
+  <strong><%= number_to_human(Station.all.count) %></strong> stations in our database... and counting.
+</div>
+<div class="ui segment">
+  The following libraries have been utilised in this project:
+  <ul>
+    <li><a href="http://www.nokogiri.org/" target="_blank">Nokogiri</a> - Web scraping library for RoR.</li>
+    <li><a href="http://www.chartjs.org/" target="_blank">Chart.js</a> - Javascript library for producing charts and graphs.</li>
+    <li><a href="http://openlayers.org/" target="_blank">OpenLayers3</a> - High performance mapping library for Javascript.</li>
+    <li><a href="http://semantic-ui.com/" target="_blank">Semantic UI</a> - Web-based user interface framework.</li>
+  </ul>
+</div>

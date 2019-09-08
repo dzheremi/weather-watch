@@ -1,0 +1,61 @@
+<div class="ui fixed inverted menu">
+  <div class="ui container">
+    <a href="/" class="header item">
+      <%= image_tag 'logo.png' %>
+      &nbsp;&nbsp;
+      WeatherWatch
+    </a>
+    <%= link_to 'Map', {:controller => :site, :action => :map}, {:class => 'item'} %>
+    <%= link_to 'Capitals', {:controller => :site, :action => :capitals}, {:class => 'item'} %>
+    <div class="ui simple dropdown item">
+      States &amp; Territories <i class="dropdown icon"></i>
+      <div class="menu">
+        <% State.order(name: :asc).each do |s| %>
+            <%= link_to s.name, {:controller => :site, :action => :state, :state => s.abbreviation}, {:class => 'item'} %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to 'Records', {:controller => :site, :action => :records}, {:class => 'item'} %>
+    <%= link_to 'About', {:controller => :site, :action => :about}, {:class => 'item'} %>
+    <div class="right menu">
+      <% if @current_user %>
+          <div class="ui simple dropdown item">
+            <%= @current_user.name %> <i class="dropdown icon"></i>
+            <div class="menu">
+              <%= link_to 'Favorite Stations', {:controller => :site, :action => :favorites}, {:class => 'item'} %>
+              <%= link_to 'Change Your Details', {:controller => :authentication, :action => :edit_user}, {:class => 'item'} %>
+              <%= link_to 'Change Your Password', {:controller => :authentication, :action => :edit_password}, {:class => 'item'} %>
+              <%= link_to 'Logout', {:controller => :authentication, :action => :logout}, {:class => 'item'} %>
+            </div>
+          </div>
+      <% else %>
+          <%= link_to 'Register', {:controller => :authentication, :action => :register}, {:class => 'item'} %>
+          <%= link_to 'Login', {:controller => :authentication, :action => :login}, {:class => 'item'} %>
+      <% end %>
+      <div class="item">
+        <div class="ui search">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search Locations...">
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.ui.search').search({
+    apiSettings: {
+      url: '/stations/{query}'
+    },
+    fields: {
+      results: 'stations',
+      title: 'name',
+      description: 'state',
+      url: 'url'
+    },
+    minCharacters: 3
+  });
+</script>

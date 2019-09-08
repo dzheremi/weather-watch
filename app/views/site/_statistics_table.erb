@@ -1,0 +1,10 @@
+<div id="statistics_table">
+</div>
+
+<script>
+
+    $.get("<%= url_for(:controller => :observations, :action => :statistics_table, :id => station) %>", function (data) {
+      $('#statistics_table').html(data);
+    });
+
+</script>

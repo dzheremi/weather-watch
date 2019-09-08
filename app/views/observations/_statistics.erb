@@ -1,0 +1,23 @@
+<table class="ui definition table striped">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Minimum</th>
+    <th>Maximum</th>
+    <th>Average</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% statistics.each do |s| %>
+      <tr>
+        <td><%= s[:name] %></td>
+        <td><%= "#{s[:min]} #{s[:unit]}" unless s[:min].nil? %></td>
+        <td><%= "#{s[:max]} #{s[:unit]}" unless s[:max].nil? %></td>
+        <td><%= "#{s[:avg].round(2)} #{s[:unit]}" unless s[:avg].nil? %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="ui center aligned segment">
+  Based on <%= number_with_delimiter(observations) %> observations since <%= oldest.to_s(:long) %>
+</div>

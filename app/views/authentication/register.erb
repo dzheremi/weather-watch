@@ -1,0 +1,53 @@
+<h1>Register</h1>
+<div class="ui middle aligned center aligned grid">
+  <div class="column" style="max-width: 400px;">
+    <%= form_tag({:action => :save_user}, {:class => 'ui large form'}) do %>
+        <div class="ui segment">
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @user.errors[:username].empty? %>">
+              <i class="user icon"></i>
+              <input type="text" name="user[username]" placeholder="Username" value="<%= @user.username %>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @user.errors[:name].empty? %>">
+              <i class="user icon"></i>
+              <input type="text" name="user[name]" placeholder="Name" value="<%= @user.name %>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @user.errors[:password].empty? %>">
+              <i class="lock icon"></i>
+              <input type="password" name="user[password]" placeholder="Password">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @user.errors[:password_confirmation].empty? %>">
+              <i class="lock icon"></i>
+              <input type="password" name="user[password_confirmation]" placeholder="Confirm Password">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input<%= ' error' unless @user.errors[:email].empty? %>">
+              <i class="mail icon"></i>
+              <input type="text" name="user[email]" placeholder="Email" value="<%= @user.email %>">
+            </div>
+          </div>
+          <div class="field">
+            <select name="user[timezone_id]" class="ui dropdown<%= ' error' unless @user.errors[:timezone_id].empty? %>">
+              <option value="">Time Zone</option>
+              <% @timezones.each do |t| %>
+                <option value="<%= t.id %>"><%= t.name %></option>
+              <% end %>
+            </select>
+            <script>
+              $('.ui.dropdown')
+                  .dropdown()
+              ;
+            </script>
+          </div>
+          <button class="ui fluid large submit button" type="submit">Register</button>
+        </div>
+    <% end %>
+  </div>
+</div>

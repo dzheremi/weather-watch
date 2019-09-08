@@ -1,0 +1,33 @@
+<table class="ui celled table striped">
+  <tbody>
+  <% data.each do |d| %>
+    <%= raw(d) %>
+  <% end %>
+  </tbody>
+</table>
+<div id="<%= "#{station.id}_updated" %>" class="ui segment center aligned">
+  <%= "updated #{time_ago_in_words(station.last_updated)} ago" if station.last_updated %>
+</div>
+<script>
+
+  $(function() {
+    setInterval("update<%= station.id %>()", 300000);
+  });
+
+  function update<%= station.id %>() {
+    $.get("<%= url_for(:controller => :observations, :action => :show, :id => station, :readings => 1) %>", function (data) {
+      $.each(data['observations'][0]['readings'], function (i, val) {
+        var element = '#' + data['station']['station_id'] + '_' + val['safe_name'];
+        if (val['unit_abbr']) {
+          var value = val['value'] + ' ' + val['unit_abbr'];
+        } else {
+          var value = val['value'];
+        }
+        $(element).html(value);
+      });
+      var element = '#' + data['station']['station_id'] + '_updated';
+      $(element).html(data['observations'][0]['updated_ago']);
+    });
+  }
+
+</script>
